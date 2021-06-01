@@ -37,10 +37,10 @@ Model training is done with the help of Abhishek Thakur's Tez library. Tez is a 
 
 `python src/train.py --train_csv input/single_cells/train_folds.csv --img_dir input/single_cells --batch_size 32 --num_epochs 5 --fold 1 --save_dir models/`
 
-#### A Note on resizing of cell images
-Single cells present in the HPA competition dataset are of varying morphologies, therefore each single cell image is a different size and shape. We resize these to a 260x260 square image as this is the recommended input for the EfficientNetB2 we are transfer learning on. While it is true some useful predictive information may be lost in terms of cell morphology when we reshape and slightly warp images to make them fit in our square image format, we think this is a good solution. Using different size cell images and a custom pytorch collate function to accomodate this would have a cost in terms of training speed, and 0-padding images (rather than resizing) up to 260x260 means our network has to spend time learning that 0 padding is to be ignored (Jeremy Howard). Of these 3 options, resizing our single cell images to consistent tiles for training appears to be the simplest and most effective.  
+#### *A Note on resizing of cell images...*
+Single cells present in the HPA competition dataset are of varying morphologies, therefore each single cell image is a different size and shape. We resize these to a 260x260 square image as this is the recommended input for the EfficientNetB2 architecture we are performing transfer learning on. While it is true some useful predictive information may be lost in terms of cell morphology when we reshape and slightly warp images to make them fit in our square image format, we think this is a good solution. Using different size cell images and a custom pytorch collate function to accomodate this would have a cost in terms of training speed, and 0-padding images (rather than resizing) up to 260x260 means our network has to spend time learning that 0 padding is to be ignored (Jeremy Howard). Of these 3 options, resizing our single cell images to consistent tiles for training appears to be the simplest and most effective.  
 
-Our training specification is as follows:
+**Our training specification is as follows:**
 - Network architecture is an EfficientNetB2 with its final fully connected layer replaced with one which outputs 19 classes. A sigmoid activation function is used as a proxy for class probability. 
 - Loss function used is binary cross-entropy. 
 - We use an Adam optimiser with cosine annealing learning rate scheduling inspired by recent successful data science competition submissions (https://www.kaggle.com/c/cassava-leaf-disease-classification/discussion/221957). 
