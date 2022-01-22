@@ -33,7 +33,7 @@ To do this we use iterative stratification to decide our training folds (impleme
 `python src/gen_folds.py --train_csv input/single_cells/train.csv --output_csv input/single_cells/train_folds.csv --n_folds 5`
 
 ### 3. Train model
-Model training is done with the help of Abhishek Thakur's Tez library. Tez is a lightweight trainer so you have to do most of the work to get a model training yourself, however this means that training is very customisable. As a bonus debugging is ussually simpler as the Tez codebase is a manageable size. 
+Model training is done with the help of Abhishek Thakur's Tez library. Tez is a lightweight trainer so you have to do most of the work to get a model training yourself, however this means that training is very customisable and debugging is relatively simple as the Tez codebase is a manageable size. 
 
 `python src/train.py --train_csv input/single_cells/train_folds.csv --img_dir input/single_cells --batch_size 32 --num_epochs 5 --fold 1 --save_dir models/`
 
